@@ -385,10 +385,28 @@ Aボタンが押された時に、status = 0 の場合の処理はすでにか�
        - guessの内容をクリア
        - status を1にする
 
-## 4.答え合わせをする（出題する）
+## 4.答え合わせをする（出題する1）
 判定する前に、問題をつくりましょう。
 ``||input:ボタンAが押されたとき||`` の中の``||logic:もし〜なら〜でなければ||``ブロックの ``||variables:status を1にする||`` の上に
-``||variables:変数を（）にする||``をおき、``||variables:変数||`` を **secret** にして、（）に、``||advanced:高度なブロック||`` の ``||text:文字列||`` にある``||text:数値（）を文字列にする|`` をいれて、（）に ``||math:計算||``の``||math:()から()の乱数||``をセットして、**0から9の乱数** になるようにします。 
+``||variables:変数を（）にする||``をおき、``||variables:変数||`` を **secret** にします。
+```blocks 
+input.onButtonPressed(Button.A, function () {
+    if (status == 0) {
+        secret = 0
+        status = 1
+    } else if (status == 2) {
+    
+    } else {
+        status = 0
+    }
+})
+
+```
+
+
+## 4.答え合わせをする（出題する2）
+判定する前に、問題をつくりましょう。
+``||variables:secretを（）にする||``に、``||advanced:高度なブロック||`` の ``||text:文字列||`` にある``||text:数値（）を文字列にする|`` をいれて、（）に ``||math:計算||``の``||math:()から()の乱数||``をセットして、**0から9の乱数** になるようにします。 
 
 ```blocks 
 input.onButtonPressed(Button.A, function () {
@@ -430,7 +448,7 @@ input.onButtonPressed(Button.A, function () {
 ```blocks 
 input.onButtonPressed(Button.A, function () {
     if (status == 0) {
-        secret = make_secret()
+        secret = convertToText(randint(0, 9))
         status = 1
     } else if (status == 2) {
         if (guess == secret) {
@@ -455,7 +473,7 @@ input.onButtonPressed(Button.A, function () {
 ```blocks 
 input.onButtonPressed(Button.A, function () {
     if (status == 0) {
-        secret = make_secret()
+        secret = convertToText(randint(0, 9))
         status = 1
     } else if (status == 2) {
         if (guess == secret) {
@@ -482,7 +500,7 @@ input.onButtonPressed(Button.A, function () {
 ```blocks
 input.onButtonPressed(Button.A, function () {
     if (status == 0) {
-        secret = make_secret()
+        secret = convertToText(randint(0, 9))
         status = 1
     } else if (status == 2) {
         if (guess == secret) {
@@ -506,7 +524,7 @@ input.onButtonPressed(Button.A, function () {
 ```blocks
 input.onButtonPressed(Button.A, function () {
     if (status == 0) {
-        secret = make_secret()
+        secret = convertToText(randint(0, 9))
         status = 1
     } else if (status == 2) {
         if (guess == secret) {
@@ -553,21 +571,14 @@ basic.forever(function () {
     }
 })
 ```
-## 5. LEDを光らせる5 テスト
+## 4. 判定 テスト
 ここまでできたら、micro:bit にダウンロードして実際に動かしてみましょう。
 キーパッドは、平らなところにおいて、ゆっくり押さえるようにしてください。
 
 
 
+
 ## 🌈 ここまでのプログラムを振り返ろう@showdialog
-ここまでで、Aボタンでモードを切り替えて、キーパットから色のrgbの値を指定して、それに対応した色でLEDを光らせるプログラムを作成しました。
 
-少し長いプログラムなので、おおよその処理の流れを図で確認しましょう。
-
-![フローチャート](https://github.com/SKYTREE-1/keypad2/blob/master/images/flow2.jpg?raw=true)
 
 ```
-## 5. もっと工夫しよう@showdialog
-
-さいごは、keypad と テープLEDを使って、じゆうにあそんでみてください。
-色の番号を決める部分は、たとえば、関数にして呼び出すようにすると、コードが見やすくなります。
