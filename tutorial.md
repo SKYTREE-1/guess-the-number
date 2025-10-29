@@ -394,8 +394,7 @@ input.onButtonPressed(Button.A, function () {
     if (status == 0) {
         secret = 0
         status = 1
-    } else if (status == 2) {
-    
+       
     } else {
         status = 0
     }
@@ -413,8 +412,7 @@ input.onButtonPressed(Button.A, function () {
     if (status == 0) {
         secret = convertToText(randint(0, 9))
         status = 1
-    } else if (status == 2) {
-    
+       
     } else {
         status = 0
     }
