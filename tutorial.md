@@ -393,7 +393,7 @@ Aボタンが押された時に、status = 0 の場合の処理はすでにか�
 ```blocks 
 input.onButtonPressed(Button.A, function () {
     if (status == 0) {
-        convertToText(randint(0, 9))
+        secret = convertToText(randint(0, 9))
         status = 1
     } else if (status == 2) {
     
