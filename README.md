@@ -5,7 +5,7 @@
 >
 > ...
 
-* [チュートリアル](/guess-the-number/tutorial) [開始](https://makecode.microbit.org/#tutorial:github:(https://skytree-1.github.io/guess-the-number)/tutorial)
+* [チュートリアル](https://skytree-1.github.io/guess-the-number/tutorial) [開始](https://makecode.microbit.org/#tutorial:github:https://skytree-1.github.io/guess-the-number/tutorial)
 
 ...
 
