@@ -755,5 +755,6 @@ basic.forever(function () {
 ![全体の流れ](https://github.com/SKYTREE-1/guess-the-number/blob/master/guess-the-number1.jpg?raw=true)
 
 
+<script src="https://cdn.jsdelivr.net/gh/jp-rad/pxt-ubit-extension@0.5.0/.github/statics/gh-pages-embed.js"></script>
+<script>makeCodeRender("{{ site.makecode.home_url }}", [ "custom=github:jp-rad/pxt-ubit-extension", ]);</script>
 
-```
