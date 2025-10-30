@@ -18,6 +18,18 @@ MakeCode でこのリポジトリを編集します。
 * **読み込む** をクリックし、 **URLから読み込む...** をクリックしてください
 * **https://github.com/skytree-1/guess-the-number** を貼り付けてインポートをクリックしてください
 
+
+```blocks
+input.onButtonPressed(Button.A, function () {
+    basic.showNumber(custom.baz())
+})
+input.onButtonPressed(Button.B, function () {
+    basic.showNumber(custom.bar())
+})
+```
+
+
+
 #### メタデータ (検索、レンダリングに使用)
 
 * for PXT/microbit
