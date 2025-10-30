@@ -492,7 +492,7 @@ input.onButtonPressed(Button.A, function () {
 
 
 ## 4.答え合わせをする（判定３）
-出なければ下に、``||basic:アイコンを表示||``を使って x を表示するようにして、
+でなければ下に、``||basic:アイコンを表示||``を使って x を表示するようにして、
 その次に``||variables: guess を （""）||`` と ``||variables: status を 1||`` にするをセットします。
 **（""）** は、``||advanced:高度なブロック|`` の``||text:文字列||`` の中にあります。
 ```blocks
@@ -573,10 +573,181 @@ basic.forever(function () {
 ここまでできたら、micro:bit にダウンロードして実際に動かしてみましょう。
 キーパッドは、平らなところにおいて、ゆっくり押さえるようにしてください。
 
+## 🌈 ここまでのプログラムを振り返ろう！@showdialog
+ここまでで、この数あてゲームは、プレイヤーが入力した数字に対して「あたり」または「はずれ」と結果を表示するところまで完成しています。
+そして、プレイヤーは当たるまで、数字を入力していくようになっています。
+
+しかし、このままでは正解にたどり着くまでに手がかりがなく、遊びにくい状態です。
+そこで、プレイヤーがより楽しみながら正解を探せるように、「ヒントを出す機能」を追加ししましょう。
+具体的には、入力した数が正解より大きいか小さいかを教えるようにして、次の予想に役立てられるようにします。
+
+あたりを判定する部分で、いまは、あたり・はずれの２通りに分けていますが、つぎのように３つの場合にわけてヒントをだします。
+
+ - guess = secret なら スマイルマークを表示
+ - guess < secret なら Xを表示した後、↑ を表示
+ - それ以外（guess > secret）なら Xを表示したあと、↓を表示
+
+あたりの場合、最後に status = 0 にすること、はずれの場合、guess をリセットして status = 1 に変更する部分はかわりません。
+
+では、プログラムの続きを作成して数あてを完成させましょう。
 
 
 
-## 🌈 ここまでのプログラムを振り返ろう@showdialog
+## 5.ヒントを出す（場合を増やす1）
+``||input:ボタンAが押されたとき||`` の中の **status = 2 ** の場合の処理について考えます。
+``||logic:もし guess=secret なら||``ではじまるブロックの左下の ** + ** をクリックして条件を増やします。 
+
+```blocks
+input.onButtonPressed(Button.A, function () {
+    if (status == 0) {
+        secret = convertToText(randint(0, 9))
+        status = 1
+    } else if (status == 2) {
+        if (guess == secret) {
+            basic.showIcon(IconNames.Happy)
+            status = 0
+        } else if(false) {
+        } else {
+            basic.showIcon(IconNames.No)
+            guess = ""
+            status = 1
+        }
+    } else {
+        status = 0
+    }
+})
+```
+## 5.ヒントを出す（場合を増やす2）
+新しく増えた条件の部分が ``||logic:guess < secret ||`` となるようにして、
+処理の部分は ``||logic:でなければ ||``の中と同じになるようにブロックを配置します。 
+
+```blocks
+input.onButtonPressed(Button.A, function () {
+    if (status == 0) {
+        secret = convertToText(randint(0, 9))
+        status = 1
+    } else if (status == 2) {
+        if (guess == secret) {
+            basic.showIcon(IconNames.Happy)
+            status = 0
+        } else if(guess < secret) {
+            basic.showIcon(IconNames.No)
+            guess = ""
+            status = 1
+        } else {
+            basic.showIcon(IconNames.No)
+            guess = ""
+            status = 1
+        }
+    } else {
+        status = 0
+    }
+})
+```
+
+## 5.ヒントを出す（ヒントを出す）
+``||logic:guess < secret ||`` の ``||basic: アイコンを表示 X ||`` ブロックの下に、``||basic:基本||``にある ``||basic:矢印を表示||``をセットして、矢印の向きを **上向き ↑** にします。
+また、同じように、``||logic:でなければ ||`` （guess > secret となるとき）に、下向きの矢印を表示するようにします。
+
+```blocks
+input.onButtonPressed(Button.A, function () {
+    if (status == 0) {
+        secret = convertToText(randint(0, 9))
+        status = 1
+    } else if (status == 2) {
+        if (guess == secret) {
+            basic.showIcon(IconNames.Happy)
+            
+            status = 0
+        } else if(guess < secret) {
+            basic.showIcon(IconNames.No)
+            basic.showArrow(ArrowNames.North)
+            guess = ""
+            status = 1
+        } else {
+            basic.showIcon(IconNames.No)
+            basic.showArrow(ArrowNames.South)
+            guess = ""
+            status = 1
+        }
+    } else {
+        status = 0
+    }
+})
+```
+
+## 5. ヒントの追加 テスト @showdialog
+ここまでのプログラムです。
+
+```blocks
+input.onButtonPressed(Button.A, function () {
+    if (status == 0) {
+        secret = convertToText(randint(0, 9))
+        status = 1
+    } else if (status == 2) {
+        if (guess == secret) {
+            basic.showIcon(IconNames.Happy)
+            status = 0
+        } else if(guess < secret) {
+            basic.showIcon(IconNames.No)
+            basic.showArrow(ArrowNames.North)
+            guess = ""
+            status = 1
+        } else {
+            basic.showIcon(IconNames.No)
+            basic.showArrow(ArrowNames.South)
+            guess = ""
+            status = 1
+        }
+    } else {
+        status = 0
+    }
+})
+input.onButtonPressed(Button.B, function () {
+    basic.showNumber(status)
+})
+let chara = ""
+let guess = ""
+let secret = ""
+let status = 0
+basic.showIcon(IconNames.Heart)
+keypad.setKeyPad4(
+DigitalPin.P0,
+DigitalPin.P1,
+DigitalPin.P2,
+DigitalPin.P8,
+DigitalPin.P13,
+DigitalPin.P14,
+DigitalPin.P15,
+DigitalPin.P16
+)
+basic.forever(function () {
+    if (status == 1) {
+        chara = keypad.getKeyString()
+        basic.showString(chara)
+        basic.pause(300)
+        if (chara != "") {
+            guess = chara
+            status = 2
+        }
+    } else {
+    	
+    }
+})
+```
+
+## 🌈 全体をプログラムを振り返ろう@showdialog
+
+お疲れ様でした！　
+数あてゲームの完成です。ぜひ遊んでみてください。
+
+また、追加機能として、**あたり！** を派手に演出する方法を考えたり、**得点** をつけたり、**◯回までチャレンジできる**というような制限をつけたりすると、さらに楽しいゲームになると思います。
+チャレンジしてみてください！
+
+最後に、全体の流れを、まとめたので確認してみてください。
+
+![全体の流れ](https://github.com/SKYTREE-1/guess-the-number/blob/master/guess-the-number1.jpg?raw=true)
+
 
 
 ```
