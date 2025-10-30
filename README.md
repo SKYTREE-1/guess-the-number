@@ -1,5 +1,7 @@
 
 > このページを開く [https://skytree-1.github.io/guess-the-number/](https://skytree-1.github.io/guess-the-number/)
+>
+> チュートリアルを開く [https://skytree-1.github.io/guess-the-number/tutorial](https://skytree-1.github.io/guess-the-number/tutorial)
 ## 拡張機能として使用
 
 このリポジトリは、MakeCode で **拡張機能** として追加できます。
